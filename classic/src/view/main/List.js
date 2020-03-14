@@ -6,28 +6,32 @@ Ext.define('extTest.view.main.List', {
     xtype: 'mainlist',
 
     requires: [
-        'extTest.store.Personnel'
+        'extTest.store.Personnel',
     ],
-
-    title: 'TEST#1',
 
     store: {
         type: 'personnel'
     },
 
+    title: 'TEST#1',
+
     columns: [
-        { text: 'Name',  dataIndex: 'name' },
+        { text: 'Name',  dataIndex: 'name', editor: 'textfield' },
         { text: 'Email', dataIndex: 'email', flex: 1 },
-        { text: 'Phone', dataIndex: 'phone', flex: 1 },
+        { text: 'Phone', dataIndex: 'phone', flex: 1},
         {
             text: 'Size',
             dataIndex: 'size',
             flex: 1,
-            // xtype: 'templatecolumn',
-            // tpl: new Ext.XTemplate(
-            //     "<tpl if='size == \"M\"'><div style='background-color: red'>{size}</div></tpl>",
-            //     "<tpl if='size == \"L\"'><div style='background-color: green'>{size}</div></tpl>"
-            // )
+            editor: {
+                xtype: 'combobox',
+                //TODO: replace to actual store
+                store:[
+                    "M", "L"
+                ],
+                editable: false
+            },
+
             renderer: function (value, metaData) {
                 switch (value.toLowerCase()) {
                     case 'm': {
@@ -46,7 +50,64 @@ Ext.define('extTest.view.main.List', {
         }
     ],
 
+    tbar:[
+        {
+            xtype: 'button',
+            text: 'DELETE ALL'
+        },
+        {
+            xtype: 'button',
+            text: 'DELETE'
+        },
+        {
+            xtype: 'button',
+            text: 'ADD'
+        },
+        {
+            xtype: 'button',
+            text: 'SUBMIT'
+        },
+        {
+            xtype: 'button',
+            text: 'CANCEL'
+        },
+        {
+            xtype: 'button',
+            text: 'REFRESH'
+        },
+        {
+            xtype: 'checkbox',
+            label: 'Read only'
+        },
+        {
+            xtype: 'button',
+            text: 'OPTION',
+            arrowAlign: 'right',
+            menu:[
+                {
+                    text: 'Change Title Name',
+                },
+                {
+                    text: 'Change Title Color'
+                }
+            ]
+        },
+    ],
+
+    bbar:{
+        xtype: 'pagingtoolbar',
+        displayInfo: true,
+
+    },
+
+    selModel: 'rowmodel',
+    plugins: [
+        {
+            ptype: 'rowediting',
+            clicksToEdit: 2
+        }
+    ],
+
     listeners: {
-        select: 'onItemSelected'
     }
 });
