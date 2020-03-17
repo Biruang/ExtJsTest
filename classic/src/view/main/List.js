@@ -4,7 +4,7 @@
 Ext.define('extTest.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
-
+    alias: 'view.list',
     requires: [
         'extTest.store.Personnel',
     ],
@@ -15,10 +15,14 @@ Ext.define('extTest.view.main.List', {
 
     title: 'TEST#1',
 
+    defaults:{
+        height: 400
+    },
+
     columns: [
-        { text: 'Name',  dataIndex: 'name', editor: 'textfield' },
-        { text: 'Email', dataIndex: 'email', flex: 1 },
-        { text: 'Phone', dataIndex: 'phone', flex: 1},
+        { text: 'Name', dataIndex: 'name', editor: 'textfield' },
+        { text: 'Email', dataIndex: 'email', editor: 'textfield', flex: 1 },
+        { text: 'Phone', dataIndex: 'phone', editor: 'textfield', flex: 1},
         {
             text: 'Size',
             dataIndex: 'size',
@@ -53,12 +57,15 @@ Ext.define('extTest.view.main.List', {
     tbar:[
         {
             xtype: 'button',
-            text: 'DELETE ALL'
+            text: 'DELETE ALL',
+            action: 'delete all'
         },
         {
             xtype: 'button',
-            text: 'DELETE'
+            text: 'DELETE',
+            action: "delete select"
         },
+        { xtype:'tbseparator' },
         {
             xtype: 'button',
             text: 'ADD'
@@ -75,10 +82,13 @@ Ext.define('extTest.view.main.List', {
             xtype: 'button',
             text: 'REFRESH'
         },
+        { xtype:'tbspacer', flex: 1 },
         {
             xtype: 'checkbox',
-            label: 'Read only'
+            label: 'Read only',
+            boxLabel: 'Read Only'
         },
+        { xtype:'tbspacer', flex: 1 },
         {
             xtype: 'button',
             text: 'OPTION',
@@ -86,9 +96,39 @@ Ext.define('extTest.view.main.List', {
             menu:[
                 {
                     text: 'Change Title Name',
+                    listeners: {
+                        click: function () {
+                            Ext.create('Ext.window.Window', {
+                                title: 'Change Title Name',
+                                height: 150,
+                                width: 400,
+                                layout: 'fit',
+                                modal: true,
+                                items: [{
+                                    xtype: 'button',
+                                    text: 'fff'
+                                }]
+                            }).show();
+                        }
+                    }
                 },
                 {
-                    text: 'Change Title Color'
+                    text: 'Change Title Color',
+                    listeners: {
+                        click: function () {
+                            Ext.create('Ext.window.Window', {
+                                title: 'Change Title Color',
+                                height: 150,
+                                width: 400,
+                                layout: 'fit',
+                                modal: true,
+                                items: [{
+                                    xtype: 'button',
+                                    text: 'fff'
+                                }]
+                            }).show();
+                        }
+                    }
                 }
             ]
         },
@@ -96,7 +136,7 @@ Ext.define('extTest.view.main.List', {
 
     bbar:{
         xtype: 'pagingtoolbar',
-        displayInfo: true,
+        displayInfo: false,
 
     },
 
