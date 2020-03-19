@@ -7,6 +7,11 @@ Ext.define('extTest.controller.List', {
     init: function () {
     },
 
+    refs: [{
+        ref: 'list',
+        selector: 'grid'
+    }],
+
     control: {
         'panel':{
             selectionchange: 'onSelect'
@@ -120,11 +125,7 @@ Ext.define('extTest.controller.List', {
     },
 
     onChangeTitleName: function (button) {
-        let grid = button.up('grid')
-        let d = button.up('body').down('grid');
         let textfield = button.up('window').down('textfield');
-        debugger
-        console.log(grid);
-        grid.setTitle(textfield.value);
+        this.getList().setTitle(textfield.value);
     }
 });
