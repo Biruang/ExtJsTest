@@ -1,6 +1,7 @@
 /**
  * This view is an example list of people.
  */
+
 Ext.define('extTest.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
@@ -16,7 +17,8 @@ Ext.define('extTest.view.main.List', {
     title: 'TEST#1',
 
     defaults:{
-        height: 400
+        height: 400,
+        overflow: null,
     },
 
     columns: [
@@ -62,37 +64,44 @@ Ext.define('extTest.view.main.List', {
         },
         {
             xtype: 'button',
-            text: 'DELETE',
+            text: 'DELETE ELEMENT',
+            id: 'delete_solo',
             action: "delete select"
         },
         { xtype:'tbseparator' },
         {
             xtype: 'button',
-            text: 'ADD'
+            text: 'ADD',
+            action: 'add'
         },
         {
             xtype: 'button',
-            text: 'SUBMIT'
+            text: 'SUBMIT',
+            action: 'submit'
         },
         {
             xtype: 'button',
-            text: 'CANCEL'
+            text: 'CANCEL',
+            action: 'cancel'
         },
         {
             xtype: 'button',
-            text: 'REFRESH'
+            text: 'REFRESH',
+            action: 'refresh'
         },
         { xtype:'tbspacer', flex: 1 },
         {
             xtype: 'checkbox',
             label: 'Read only',
-            boxLabel: 'Read Only'
+            boxLabel: 'Read Only',
+            action: 'readonly'
         },
         { xtype:'tbspacer', flex: 1 },
         {
             xtype: 'button',
             text: 'OPTION',
             arrowAlign: 'right',
+            action:"options",
             menu:[
                 {
                     text: 'Change Title Name',
@@ -105,8 +114,12 @@ Ext.define('extTest.view.main.List', {
                                 layout: 'fit',
                                 modal: true,
                                 items: [{
-                                    xtype: 'button',
-                                    text: 'fff'
+                                    xtype: 'textfield',
+                                    fieldLabel: "Name title"
+                                }],
+                                buttons: [{
+                                    action: 'change_title_name',
+                                    text: "Save"
                                 }]
                             }).show();
                         }
