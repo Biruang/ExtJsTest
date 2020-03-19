@@ -20,6 +20,9 @@ Ext.define('extTest.controller.List', {
         'button[action="add"]':{
             click: 'onAdd'
         },
+        'button[action="submit"]':{
+            click: 'onSubmit'
+        },
         'button[action="refresh"]':{
             click: 'onRefresh'
         },
@@ -58,6 +61,12 @@ Ext.define('extTest.controller.List', {
         edit.cancelEdit();
         store.insert(0, res);
         edit.startEdit(0)
+    },
+
+    onSubmit: function(button){
+        let g_store = this.getStore(this.stores[0]);
+        let l_store = button.up('panel').store;
+        g_store = l_store;
     },
 
     onSelect: function (selection) {
