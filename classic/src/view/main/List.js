@@ -23,8 +23,31 @@ Ext.define('extTest.view.main.List', {
 
     columns: [
         { text: 'Name', dataIndex: 'name', editor: 'textfield' },
-        { text: 'Email', dataIndex: 'email', editor: 'textfield', flex: 1 },
-        { text: 'Phone', dataIndex: 'phone', editor: 'textfield', flex: 1},
+        {
+            text: 'Email',
+            dataIndex: 'email',
+            editor:
+                {
+                    xtype: 'textfield',
+                    validator: function(value){
+                        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))
+                    }
+                },
+            flex: 1 },
+        {
+            text: 'Phone',
+            dataIndex: 'phone',
+            filter:{
+                type: 'list',
+            },
+            editor: {
+                xtype: 'textfield',
+                validator: function (value) {
+                    return(/^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(value))
+                }
+            },
+            flex: 1
+        },
         {
             text: 'Size',
             dataIndex: 'size',
@@ -36,6 +59,10 @@ Ext.define('extTest.view.main.List', {
                     "M", "L"
                 ],
                 editable: false
+            },
+            filter: {
+              type: 'list',
+              options: ['L','M']
             },
 
             renderer: function (value, metaData) {
@@ -161,6 +188,9 @@ Ext.define('extTest.view.main.List', {
         {
             ptype: 'rowediting',
             clicksToEdit: 2
+        },
+        {
+            ptype: 'gridfilters'
         }
     ],
 
