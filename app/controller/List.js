@@ -23,6 +23,9 @@ Ext.define('extTest.controller.List', {
         'button[action="submit"]':{
             click: 'onSubmit'
         },
+        'button[action="cancel"]':{
+            click: 'onCancel'
+        },
         'button[action="refresh"]':{
             click: 'onRefresh'
         },
@@ -66,7 +69,7 @@ Ext.define('extTest.controller.List', {
     onSubmit: function(button){
         let g_store = this.getStore(this.stores[0]);
         let l_store = button.up('panel').store;
-        g_store = l_store;
+        g_store.setData(l_store.data.items);
     },
 
     onSelect: function (selection) {
@@ -77,6 +80,12 @@ Ext.define('extTest.controller.List', {
         } else {
             button.update('DELETE ELEMENT')
         }
+    },
+
+    onCancel: function (button){
+        let g_store = this.getStore(this.stores[0]);
+        let l_store = button.up('panel').store;
+        l_store.setData(g_store.data.items);
     },
 
     onRefresh: function (button) {
@@ -97,8 +106,6 @@ Ext.define('extTest.controller.List', {
             "options"
         ];
 
-        let delAll = grid.down('button[action="delete all"]');
-
         if(checkbox.value){
             selectors.forEach(function(selector) {
                 grid.down(`button[action=${selector}]`).disable();
@@ -110,8 +117,6 @@ Ext.define('extTest.controller.List', {
             });
             grid.findPlugin('rowediting').enable();
         }
-
-        console.log(checkbox.up('grid').down('button'))
     },
 
     onChangeTitleName: function (button) {
