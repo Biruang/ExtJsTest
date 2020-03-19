@@ -131,13 +131,16 @@ Ext.define('extTest.view.main.List', {
                         click: function () {
                             Ext.create('Ext.window.Window', {
                                 title: 'Change Title Color',
-                                height: 150,
+                                height: 200,
                                 width: 400,
                                 layout: 'fit',
                                 modal: true,
                                 items: [{
-                                    xtype: 'button',
-                                    text: 'fff'
+                                    xtype: 'colorpicker',
+                                }],
+                                buttons:[{
+                                    action: 'change_title_color',
+                                    text: "Save"
                                 }]
                             }).show();
                         }

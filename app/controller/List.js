@@ -10,6 +10,9 @@ Ext.define('extTest.controller.List', {
     refs: [{
         ref: 'list',
         selector: 'grid'
+    },{
+        ref: 'color',
+        selector: 'header'
     }],
 
     control: {
@@ -39,6 +42,9 @@ Ext.define('extTest.controller.List', {
         },
         'button[action="change_title_name"]': {
             click: 'onChangeTitleName'
+        },
+        'button[action="change_title_color"]': {
+            click: 'onChangeTitleColor'
         }
     },
 
@@ -127,5 +133,11 @@ Ext.define('extTest.controller.List', {
     onChangeTitleName: function (button) {
         let textfield = button.up('window').down('textfield');
         this.getList().setTitle(textfield.value);
+    },
+
+    onChangeTitleColor: function (button) {
+        let colorpicker = button.up('window').down('colorpicker');
+        let list = this.getList();
+        list.setTitle(`<div style="color: #${colorpicker.value}">${list.title}</div>`);
     }
 });
