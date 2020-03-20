@@ -59,6 +59,7 @@ Ext.define('extTest.view.main.List', {
                 store:[
                     "M", "L"
                 ],
+                allowBlank: true,
                 editable: false
             },
             filter: {
@@ -67,6 +68,11 @@ Ext.define('extTest.view.main.List', {
             },
 
             renderer: function (value, metaData) {
+                if(value === null) {
+                    metaData.tdAttr = 'bgcolor="red"';
+                    return
+                }
+
                 switch (value.toLowerCase()) {
                     case 'm': {
                         metaData.tdAttr = 'bgcolor="green"';
