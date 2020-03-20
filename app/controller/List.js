@@ -4,6 +4,7 @@ Ext.define('extTest.controller.List', {
     stores: ['Personnel'],
     models: ['Personnel'],
 
+
     control: {
         'panel':{
             selectionchange: 'onSelect',

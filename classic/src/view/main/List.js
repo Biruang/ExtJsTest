@@ -9,6 +9,7 @@ Ext.define('extTest.view.main.List', {
     xtype: 'mainlist',
     alias: 'view.list',
     enablePaging: true,
+    reference: 'grid',
     requires: [
         'extTest.store.Personnel',
     ],
@@ -120,12 +121,18 @@ Ext.define('extTest.view.main.List', {
         {
             xtype: 'button',
             text: 'SUBMIT',
-            action: 'submit'
+            action: 'submit',
+            bind:{
+                disabled: '{isDisabled}'
+            }
         },
         {
             xtype: 'button',
             text: 'CANCEL',
-            action: 'cancel'
+            action: 'cancel',
+            bind: {
+                disabled: '{isDisabled}'
+            }
         },
         {
             xtype: 'button',
