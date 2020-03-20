@@ -44,7 +44,7 @@ Ext.define('extTest.view.main.List', {
             editor: {
                 xtype: 'textfield',
                 validator: function (value) {
-                    return(/^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(value))
+                    return(/^\+?([0-9]{3})\)?[-]+?([0-9]{3})[-]+?([0-9]{4})$/.test(value))
                 }
             },
             flex: 1
