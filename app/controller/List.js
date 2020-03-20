@@ -49,38 +49,36 @@ Ext.define('extTest.controller.List', {
     },
 
     deleteAll: function (button) {
-        let store = button.up('panel').store;
-        store.removeAll();
-        console.log(store)
+        let grid = Ext.getCmp('PersonnelGrid');
+        grid.store.removeAll();
     },
 
     deleteSelected: function(button) {
-        let store = button.up('panel').store;
+        let grid = Ext.getCmp('PersonnelGrid');
         let selection = button.up('panel').getSelection()[0];
         if (selection) {
-            store.remove(selection);
+            grid.store.remove(selection);
         }
     },
 
     onAdd: function(button){
-        let store = button.up('panel').store;
+        let grid = Ext.getCmp('PersonnelGrid');
         var res = new extTest.model.Personnel({
             name: '',
             phone: '',
             email: '',
             size: ''
         });
-        var edit = button.up('grid').findPlugin('rowediting');
+        var edit = grid.findPlugin('rowediting');
 
         edit.cancelEdit();
-        store.insert(0, res);
+        grid.store.insert(0, res);
         edit.startEdit(0)
     },
 
     onSubmit: function(button){
-        let g_store = this.getStore(this.stores[0]);
-        let l_store = button.up('panel').store;
-        g_store.setData(l_store.data.items);
+        let grid = Ext.getCmp('PersonnelGrid');
+        grid.store.commitChanges();
     },
 
     onSelect: function (selection) {
@@ -94,14 +92,13 @@ Ext.define('extTest.controller.List', {
     },
 
     onCancel: function (button){
-        let g_store = this.getStore(this.stores[0]);
-        let l_store = button.up('panel').store;
-        l_store.setData(g_store.data.items);
+        let grid = Ext.getCmp('PersonnelGrid');
+        grid.store.rejectChanges()
     },
 
     onRefresh: function (button) {
-        let store = button.up('panel').store;
-        store.load()
+        let grid = Ext.getCmp('PersonnelGrid');
+        grid.store.load()
     },
 
     readOnly: function (checkbox) {

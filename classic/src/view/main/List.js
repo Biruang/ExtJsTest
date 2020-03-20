@@ -4,6 +4,7 @@
 
 Ext.define('extTest.view.main.List', {
     extend: 'Ext.grid.Panel',
+    id: 'PersonnelGrid',
     xtype: 'mainlist',
     alias: 'view.list',
     requires: [
@@ -183,7 +184,6 @@ Ext.define('extTest.view.main.List', {
 
     },
 
-    selModel: 'rowmodel',
     plugins: [
         {
             ptype: 'rowediting',
