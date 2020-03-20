@@ -2,18 +2,27 @@
  * This view is an example list of people.
  */
 
+
 Ext.define('extTest.view.main.List', {
     extend: 'Ext.grid.Panel',
     id: 'PersonnelGrid',
     xtype: 'mainlist',
     alias: 'view.list',
+    enablePaging: true,
     requires: [
         'extTest.store.Personnel',
     ],
 
-    store: {
-        type: 'personnel'
-    },
+    // init: function(){
+    //     this.store = this.store.load({
+    //         params: {
+    //             start: 0,
+    //             limit: 6
+    //         }
+    //     })
+    // },
+
+    store: 'personelStore',
 
     title: 'TEST#1',
 
@@ -96,6 +105,11 @@ Ext.define('extTest.view.main.List', {
             text: 'DELETE ALL',
             action: 'delete',
             id: 'delete'
+        },
+        {
+            xtype: 'button',
+            text: 'RESET SELECTION',
+            action: 'reset'
         },
         { xtype:'tbseparator' },
         {
@@ -181,8 +195,8 @@ Ext.define('extTest.view.main.List', {
 
     bbar:{
         xtype: 'pagingtoolbar',
-        displayInfo: false,
-
+        displayInfo: true,
+        store: 'personelStore'
     },
 
     plugins: [

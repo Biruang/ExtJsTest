@@ -4,23 +4,15 @@ Ext.define('extTest.controller.List', {
     stores: ['Personnel'],
     models: ['Personnel'],
 
-    init: function () {
-    },
-
-    refs: [{
-        ref: 'list',
-        selector: 'grid'
-    },{
-        ref: 'color',
-        selector: 'header'
-    }],
-
     control: {
         'panel':{
-            selectionchange: 'onSelect'
+            selectionchange: 'onSelect',
         },
         'button[action="delete"]': {
             click: 'onDelete'
+        },
+        'button[action="reset"]':{
+            click: 'onReset'
         },
         'button[action="add"]':{
             click: 'onAdd'
@@ -56,13 +48,18 @@ Ext.define('extTest.controller.List', {
 
     },
 
+    onReset: function (button){
+        let grid =  Ext.getCmp('PersonnelGrid');
+        grid.setSelection(null)
+    },
+
     onAdd: function(button){
         let grid = Ext.getCmp('PersonnelGrid');
         var res = new extTest.model.Personnel({
-            name: '',
-            phone: '',
-            email: '',
-            size: ''
+            name: null,
+            phone: null,
+            email: null,
+            size: null
         });
         var edit = grid.findPlugin('rowediting');
 
@@ -101,6 +98,7 @@ Ext.define('extTest.controller.List', {
 
         let selectors = [
             "delete",
+            "reset",
             "add",
             "submit",
             "cancel",
@@ -128,7 +126,6 @@ Ext.define('extTest.controller.List', {
 
     onChangeTitleColor: function (button) {
         let colorpicker = button.up('window').down('colorpicker');
-        let list = this.getList();
-        list.setTitle(`<div style="color: #${colorpicker.value}">${list.title}</div>`);
+        Ext.getCmp('PersonnelGrid').header.title.setStyle({'color': `#${colorpicker.value}`});
     }
 });
