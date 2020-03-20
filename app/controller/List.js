@@ -19,11 +19,8 @@ Ext.define('extTest.controller.List', {
         'panel':{
             selectionchange: 'onSelect'
         },
-        'button[action="delete all"]': {
-            click: 'deleteAll'
-        },
-        'button[action="delete select"]': {
-            click: 'deleteSelected'
+        'button[action="delete"]': {
+            click: 'onDelete'
         },
         'button[action="add"]':{
             click: 'onAdd'
@@ -48,17 +45,15 @@ Ext.define('extTest.controller.List', {
         }
     },
 
-    deleteAll: function (button) {
+    onDelete: function (button) {
         let grid = Ext.getCmp('PersonnelGrid');
-        grid.store.removeAll();
-    },
-
-    deleteSelected: function(button) {
-        let grid = Ext.getCmp('PersonnelGrid');
-        let selection = button.up('panel').getSelection()[0];
-        if (selection) {
+        let selection = grid.getSelection();
+        if(selection.length){
             grid.store.remove(selection);
+        } else {
+            grid.store.removeAll();
         }
+
     },
 
     onAdd: function(button){
@@ -82,12 +77,12 @@ Ext.define('extTest.controller.List', {
     },
 
     onSelect: function (selection) {
-        let button = Ext.get('delete_solo');
+        let button = Ext.getCmp('delete');
         let select = selection.getSelection()[0];
         if(select){
             button.update(`DELETE ${select.data.name}`);
         } else {
-            button.update('DELETE ELEMENT')
+            button.update('DELETE ALL')
         }
     },
 
@@ -105,8 +100,7 @@ Ext.define('extTest.controller.List', {
         let grid = checkbox.up('grid');
 
         let selectors = [
-            "delete all",
-            "delete select",
+            "delete",
             "add",
             "submit",
             "cancel",

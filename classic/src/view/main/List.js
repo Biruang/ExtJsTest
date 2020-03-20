@@ -88,13 +88,8 @@ Ext.define('extTest.view.main.List', {
         {
             xtype: 'button',
             text: 'DELETE ALL',
-            action: 'delete all'
-        },
-        {
-            xtype: 'button',
-            text: 'DELETE ELEMENT',
-            id: 'delete_solo',
-            action: "delete select"
+            action: 'delete',
+            id: 'delete'
         },
         { xtype:'tbseparator' },
         {
